@@ -1,4 +1,9 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.print.attribute.HashAttributeSet;
 
 public class Traversals {
   public static void main(String[] args) {
@@ -39,5 +44,57 @@ public class Traversals {
     child3_1.children = new ArrayList<>();
     child3_1.children.add(child3_1_1);
     child3_1.children.add(child3_1_2);
+
+
+
+    Map<Integer, List<Integer>> tree = new HashMap<>();
+
+    tree.put(33, List.of(24, 61, 12));
+    tree.put(58, List.of(73));
+    tree.put(73, List.of());
+    tree.put(24, List.of(83,6));
+    tree.put(61, List.of());
+    tree.put(12, List.of());
+    tree.put(17, List.of(5, 99));
+    tree.put(5, List.of());
+    tree.put(99, List.of());
+    tree.put(83, List.of());
+    tree.put(6, List.of());
+    tree.put(88, List.of(17, 58, 33));
+
+    //printPreOrder(root);
+    preOrderMap(tree, 88);
   }
+
+  public static <T> void printPreOrder(Node<T> current)
+  {
+    if(current == null) return;
+    System.out.println(current.value);
+
+    if(current.children != null)
+    {
+      for(Node<?> child: current.children)
+      {
+        printPreOrder(child);
+      }
+    } 
+  }
+
+  public static <T> void preOrderMap(Map<T, List<T>> tree, T current)
+  {
+    if(current == null || !tree.containsKey(current)) return;
+
+    System.out.println(current);
+
+    List<T> children = tree.get(current);
+    if(children != null)
+    {
+      for(T child: children)
+      {
+        preOrderMap(tree, child);
+      }
+    }
+  }
+
+
 }
